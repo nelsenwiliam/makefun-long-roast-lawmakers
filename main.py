@@ -29,6 +29,10 @@ def main() -> None:
         raise SystemExit(
             "entry must be 1-%d characters, got %d" % (MAX_CHARS, len(text))
         )
+    if "\n" in text or "\r" in text:
+        raise SystemExit("entry must be a single line, got a line break")
+    if text.count(".") < 1:
+        raise SystemExit("entry must be a sentence ending with a period")
     out_dir = os.environ.get("MAKEFUN_OUTPUT_DIR", "/output")
     os.makedirs(out_dir, exist_ok=True)
     path = os.path.join(out_dir, "entry.txt")
